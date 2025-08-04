@@ -1,0 +1,50 @@
+ID,NAME,DEPT, ROLE,SALARY
+1,om ,sde,java,90
+0,SDS,DSDS,DSDS,90
+1,s,sa,sa,90
+1,dds,ds,dsd,ds
+1,om,ko,ds,ds
+1,om,ko,ds,ds
+2,dsd,ds,ds,90k
+0,om,i,tyt,90k
+ aa sa a aa
+ om om om om
+om om om om om
+ 1 2 3 4
+1 sa sa sa sa
+1 q q wq q
+1,rohan,java,developer,90k
+1,om,k,ss,ss
+1,om ,a,a,90k
+1,om ,java,developer,90k
+101,om ,java,developer,30k
+101,om ,java,developer,30k
+102,shiva,java,developer,40k
+101,om,corw,developer,30k
+101,om,java,testing,30k
+101,om,java,testing,30k
+102,shiva,java,delepor,40k
+101,om,r &d ,testing,30k
+1,sas,sas,asas,sa
+1,sas,sas,asas,sa
+2,sa,sa,sa,sa
+101,om,sde,R & D,30k
+100,o,k,m,20k
+100,o,k,m,20k
+101,om,sa,aa,90k
+100,om,s,sa,90l
+100,om,s,sa,90l
+101,sa,sa,sa,90k
+1,s,s,s,s
+101,om,java,testing,40k
+101,om,java,testing,40k
+102,shiva,java,R & D ,30K
+101,om,SP,TESTION,40K
+101,om,SP,TESTION,40K
+102,SHIVA,SP,R & D,30K
+101,Om,R&D,Developer,30000
+102,Anjali,HR,Manager,45000
+103,Rahul,IT,Tester,28000
+104,Sneha,Finance,Analyst,35000
+105,Aman,Support,Tech Lead,40000
+103,om,ss,ss,ss
