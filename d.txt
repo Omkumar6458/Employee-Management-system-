@@ -1,7 +1,5 @@
-
 101,Om,R&D,Developer,30000
 102,Anjali,HR,Manager,45000
 103,Rahul,IT,Tester,28000
 104,Sneha,Finance,Analyst,35000
 105,Aman,Support,Tech Lead,40000
-106,sk,sk,sk,90k

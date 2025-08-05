@@ -1,9 +1,12 @@
+package Practice;
+
+
+
 import java.io.*;
 import java.util.*;
 
-public class EMS {
+public class EMS_PRACTICE {
 
- 
 
           public static void main(String[] args) throws InterruptedException{
          Scanner sc = new Scanner(System.in);
@@ -49,11 +52,10 @@ public class EMS {
             System.out.printf("%" + (padding + line.length()) + "s%n", line);
           }
 
-          System.out.println("***************************************************************************************************************************************************************************");
+          System.out.println("*****************************************************************************************************************************************************************************");
         
-           System.out.println(" ╔══════════════════════════════════╗");
-           System.out.println(" ║   EMPLOPYEE MANAGEMENT SYSTEM    ║ ");
-           System.out.println(" ╚══════════════════════════════════╝");
+           System.out.println("MENU ");
+           System.out.println();
 
            
            String[] add ={
@@ -102,7 +104,7 @@ public class EMS {
             System.out.println();
            }
 
-           char[] ch = { 'L', 'o', 'a', 'd', 'i', 'n', 'g', '.', '.', '.', '.', '.','.','.' };
+           char[] ch = { 'L', 'o', 'a', 'd', 'i', 'n', 'g', '.', '.', '.', '.', '.' };
           for (int i = 0; i < ch.length; i++) {
             if (ch[i] == '.') {
                 Thread.sleep(400);
@@ -293,12 +295,12 @@ for (EmployeeName emp : filter) {  // Use your actual employee list here (e.g., 
 
             case "2":
             case "role":
-                System.out.println(      "Name " +  emp.getName()  + " Role: " + emp.getRole());
+                System.out.println(      "Name " +  emp.getName()  + "Role: " + emp.getRole());
                 break;
 
             case "3":
             case "salary":
-                System.out.println(    "Name " +  emp.getName()  + " Salary: " + emp.getSalary());
+                System.out.println(    "Name " +  emp.getName()  + "Salary: " + emp.getSalary());
                 break;
 
             case  "4":
@@ -334,17 +336,7 @@ if (!found) {
     
      
 public static void getedit(ArrayList<EmployeeName >edit) {
-
-  String password = "12345";
-
     Scanner scn = new Scanner(System.in);
-    System.out.println("Procted by Admin password");
-    String userEdit = scn.nextLine();
-
-
-    if(userEdit.equals(password)) {
-
-
     System.out.print("Enter ID to edit: ");
     String search = scn.nextLine();
     boolean found = false;
@@ -406,27 +398,6 @@ public static void getedit(ArrayList<EmployeeName >edit) {
     }
 
 
-
-       try (BufferedWriter writer1 = new BufferedWriter(new FileWriter("d.txt"))) {
-        for (EmployeeName e : edit) {
-            writer1.write(e.getId() + "," +
-                          e.getName() + "," +
-                          e.getDepartment() + "," +
-                          e.getRole() + "," +
-                          e.getSalary());
-            writer1.newLine();
-        }
-        System.out.println("Changes saved to file.");
-    } catch (IOException e) {
-        System.out.println("Error writing to file: " + e.getMessage());
-    }
-
-  }
-
-  else{
-    System.out.println("INCORRECT PASSWORD ! ");
-  }
-  
   }
 
 
@@ -445,48 +416,27 @@ public static void getedit(ArrayList<EmployeeName >edit) {
 
  public static void getDelete(ArrayList<EmployeeName> deletNam)
 {
-   String password ="12345";
 
-  System.out.println("Protected by Admin password : ");
-
-  
  Scanner scn = new Scanner(System.in);
-  String  userpassowd = scn.nextLine();
-  if(userpassowd.equals(password))
-  {
-
-  
-
    System.out.print("Enter ID to delete: ");
     String search = scn.nextLine();
     
 
-       boolean isDeleted = deletNam.removeIf(emp -> emp.getId().equals(search));
-      
-       if (isDeleted) {
-       
-      
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("d.txt"))) { // here re writing in edit 
-            for (EmployeeName emp : deletNam) {
-                writer.write(emp.getId() + "," + emp.getName() + "," + emp.getDepartment() + "," + emp.getRole() + "," + emp.getSalary());
-                writer.newLine();
-            }
-            System.out.println("File updated. Deleted ID also removed from d.txt.");
-        } catch (IOException e) {
-            System.out.println("Error while writing to file: " + e.getMessage());
-        }
-
-    } else {
-        System.out.println("ID not found. Nothing deleted.");
-    }
+       boolean s = deletNam.removeIf(emp -> emp.getId().equals(search));
+       if(s){
+       System.out.println(" Id get deleted ");
+       }
+       else{
+        System.out.println("not deleted ");
+       }
     
-  }
-  else{
-    System.out.println("INCORRECT PASSWORD ");
-  }
+try(BufferedWriter writer = new BufferedWriter(new F)) {
+  
+} catch (Exception e) {
+  
+}
 
-
- }
+    }
 
 
     }
