@@ -56,15 +56,15 @@ public class EMS {
            
            String[] add ={
           
-"╔════════════════════════════════════════════════════╗",
-"║               EMPLOYEE CONTROL PANEL               ║",
-"╠════════════════════════════════════════════════════╣",
-"║     1. Register New Employee   (Add )              ║",
-"║     2. Display All Employee Records (View)         ║",
-"║     3. Update Existing Employee Details (edit)     ║",
-"║     4. Remove Employee from System  (delete)       ║",
-"║     5. Exit Program                                ║",
-"╚════════════════════════════════════════════════════╝",
+"╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗",
+"║                                                               EMPLOYEE CONTROL PANEL                                                                 ║",
+" ║══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣",
+"║     1. Register New Employee (Add )            2. Display All Employee Records (view)          3. Update Existing Employee Details (edit)            ║",
+"║                                                                                                                                                      ║",
+"║     4. Remove Employee from System (delete)         5. Filter Employee Data                         6.  Exit Program                                 ║",
+"║                                                                                                                                                      ║",
+"║                                                                                                                                                      ║",
+"╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝",
            
            };   
 
@@ -129,62 +129,90 @@ public class EMS {
             System.out.print("Enter choice (number or command): ");
             String choice = sc.nextLine().trim().toLowerCase();
                // move this outside switch if needed globally
-
-         switch (choice) {
-          case "1":
-          case "add": {
-            Scanner scn = new Scanner(System.in);
-             System.out.print("How many employees do you want to add? ");
-          int count = scn.nextInt();
-          scn.nextLine(); // consume newline
-
-           for (int i = 0; i < count; i++) {
-            System.out.println("\nEnter details for employee " + (i + 1) + ":");
-
-            System.out.print("ID: ");
-            String id = scn.nextLine();
-            //scn.nextLine();
-
-            System.out.print("Name: ");
-            String name = scn.nextLine();
-
-            System.out.print("Department: ");
-            String department = scn.nextLine();
-
-            System.out.print("Role: ");
-            String role = scn.nextLine();
-
-            System.out.print("Salary: ");
-            String salary = scn.nextLine();
-            //scn.nextLine();
-
-            emp.add(new EmployeeName(id, name, department, role, salary));
-         
-           // 🔽 Write all employee records to file after collecting
-          try (BufferedWriter writer = new BufferedWriter(new FileWriter("d.txt", true))) {
-
-           
-            for (EmployeeName employee : emp) {
-             
-                writer.write(employee.getId() + "," +
-                             employee.getName() + "," +
-                             employee.getDepartment() + "," +
-                             employee.getRole() + "," +
-                             employee.getSalary());
-                writer.newLine();
-            }
-            System.out.println("Employee details saved to file.");
-            System.out.println();
-            
-          } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-           }
-
+  
+               switch(choice){
+        case "1":
+       case "add": {
+              Scanner scn = new Scanner(System.in);
+    System.out.print("How many employees do you want to add? ");
+    try {
       
-           
-          }
-              break;
-         }
+       int count = scn.nextInt();
+    scn.nextLine(); 
+  
+   // consume newline
+
+    // Load existing employee IDs from d.txt to prevent duplicates
+    Set<String> existingIds = new HashSet<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader("d.txt"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length > 0) {
+                existingIds.add(parts[0].trim());
+            }
+        }
+    } catch (IOException e) {
+        System.out.println("No existing employee data found. Starting fresh.");
+    }
+
+ //   List<EmployeeName> newEmployees = new ArrayList<>();
+
+    for (int i = 0; i < count; i++) {
+        System.out.println("\nEnter details for employee " + (i + 1) + ":");
+
+        String id;
+        while (true) {
+            System.out.print("ID: ");
+            id = scn.nextLine().trim();
+            if (existingIds.contains(id)) {
+                System.out.println(" ID already exists. Please enter a unique ID.");
+            } else {
+                existingIds.add(id);  // reserve the ID
+                break;
+            }
+        }
+
+        System.out.print("Name: ");
+        String name = scn.nextLine();
+
+        System.out.print("Department: ");
+        String department = scn.nextLine();
+
+        System.out.print("Role: ");
+        String role = scn.nextLine();
+
+        System.out.print("Salary: ");
+        String salary = scn.nextLine();
+
+        EmployeeName empObj = new EmployeeName(id, name, department, role, salary);
+        emp.add(empObj);
+      //  newEmployees.add(empObj); // only newly added ones to write to file
+    }
+
+  
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("d.txt", true))) {
+        for (EmployeeName employee : emp) {
+            writer.write(employee.getId() + "," +
+                         employee.getName() + "," +
+                         employee.getDepartment() + "," +
+                         employee.getRole() + "," +
+                         employee.getSalary());
+            writer.newLine();
+                   }
+        System.out.println(" Employee details saved to file.\n");
+                   } catch (IOException e) {
+        System.out.println("Error writing to file: " + e.getMessage());
+                 }
+
+                }
+                catch(Exception e)
+                {
+                  System.out.println("ENTER VALID INPUT...");
+                }
+           break;
+             }
+
            
                
                
@@ -216,7 +244,14 @@ public class EMS {
                   break;
 
 
-                case "5":
+
+                  case "5":
+                  case "filter":
+                         System.out.println("filter ");
+                        getFilter(emp);
+                         break;
+
+                case "6":
                 case "exit":
                          System.out.println("Thanks for visiting ......");
                    return;
@@ -228,9 +263,72 @@ public class EMS {
             }
 
         }
+      }
     
 
+
+public static void getFilter(ArrayList<EmployeeName> filter)
+{
+
+  Scanner scn = new Scanner(System.in);
+System.out.println("Enter ID: ");
+String search = scn.nextLine();
+
+boolean found = false;
+
+for (EmployeeName emp : filter) {  // Use your actual employee list here (e.g., `emp`)
+    if (emp.getId().equals(search)) {
+        found = true;
+
+        System.out.println("Want to filter by: 1. depart  2. role  3. salary");
+        String FILTER = scn.nextLine().trim().toLowerCase();
+
+        switch (FILTER) {
+            case "1":
+            case "depart":
+                System.out.println( "Name " +  emp.getName()  +   " Department: " + emp.getDepartment());
+                break;
+
+            case "2":
+            case "role":
+                System.out.println(      "Name " +  emp.getName()  + "Role: " + emp.getRole());
+                break;
+
+            case "3":
+            case "salary":
+                System.out.println(    "Name " +  emp.getName()  + "Salary: " + emp.getSalary());
+                break;
+
+            case  "4":
+            case " exit":
+                  return;
+                 
+
+            default:
+                System.out.println("Invalid filter option.");
+        }
+        break;  // no need to continue loop after finding the ID
     }
+}
+
+if (!found) {
+    System.out.println("Employee ID not found.");
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+    
     
      
 public static void getedit(ArrayList<EmployeeName >edit) {
@@ -256,7 +354,7 @@ public static void getedit(ArrayList<EmployeeName >edit) {
         System.out.println("edit Department ? : yes / no");
        String  goDept = scn.nextLine();
         if(goDept.equals("yes")){
-        System.out.println("Editing name for ID " + search + ":");
+        System.out.println("Editing Department  for ID " + search + ":");
         emp1.Setdept(scn.nextLine());
         }
 
@@ -268,7 +366,7 @@ public static void getedit(ArrayList<EmployeeName >edit) {
         System.out.println("edit Role ? : yes / no");
        String  gorole = scn.nextLine();
         if(gorole.equals("yes")){
-        System.out.println("Editing name for ID " + search + ":");
+        System.out.println("Editing role for ID " + search + ":");
         emp1.Setrole(scn.nextLine());
         }
 
@@ -280,7 +378,7 @@ public static void getedit(ArrayList<EmployeeName >edit) {
         System.out.println("edit Salary ? : yes / no");
        String  gosalary = scn.nextLine();
         if(gosalary.equals("yes")){
-        System.out.println("Editing name for ID " + search + ":");
+        System.out.println("Editing salary for ID " + search + ":");
         emp1.Setrole(scn.nextLine());
         }
 
@@ -292,9 +390,24 @@ public static void getedit(ArrayList<EmployeeName >edit) {
     }
 
     if (!found) {
-      System.out.println("❌ ID not found.");
+      System.out.println(" ID not found.");
     }
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  public static void getDelete(ArrayList<EmployeeName> deletNam)
